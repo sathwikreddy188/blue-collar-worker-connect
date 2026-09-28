@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', sans-serif; color: #1C1A17; background: #F7F5F0; }
+h1, h2, h3, h4, .font-head { font-family: 'Barlow Condensed', sans-serif; }
+
+::selection { background: #F2A71B; color: #152238; }
+
+/* Utility tag label - stenciled tool-tag look, used sparingly for section markers */
+.tag-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: #B87A0B;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid #F2A71B;
+}
+
+.card-edge {
+  border-left: 3px solid #152238;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.card-edge:hover {
+  border-left-color: #F2A71B;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #F2A71B;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
