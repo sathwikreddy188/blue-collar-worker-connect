@@ -19,7 +19,11 @@ export default function PostJob() {
     const f = Object.fromEntries(new FormData(e.target));
     const min = Number(f.budget_min);
     const max = Number(f.budget_max);
-    if (max < min) { setError('Maximum budget cannot be less than minimum budget.'); return; }
+    if (max < min) {
+      setError('Maximum budget cannot be less than minimum budget.');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
 
     setLoading(true);
     try {
@@ -38,6 +42,7 @@ export default function PostJob() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       setError(err.message);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setLoading(false);
     }
