@@ -12,3 +12,5 @@ from app.models.review import Review  # noqa: F401
 from app.models.message import Conversation, Message  # noqa: F401
 from app.models.notification import Notification, NotificationType  # noqa: F401
 from app.models.saved_worker import SavedWorker  # noqa: F401
+from app.models.worker_availability import WorkerAvailability, Weekday  # noqa: F401
+from app.models.earning import Earning, PaymentStatus  # noqa: F401

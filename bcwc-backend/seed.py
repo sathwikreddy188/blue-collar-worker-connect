@@ -8,7 +8,7 @@ Usage (from the backend/ folder):
 All seeded accounts use the password: password123
 """
 import sys
-from datetime import date, timedelta
+from datetime import date, time, timedelta
 
 from app.core.security import hash_password
 from app.database.base import Base
@@ -24,6 +24,8 @@ from app.models.saved_worker import SavedWorker
 from app.models.service import Service, WorkerService
 from app.models.user import User, UserRole
 from app.models.worker import WorkerProfile
+from app.models.worker_availability import WorkerAvailability, Weekday
+from app.models.earning import Earning
 
 PASSWORD = "password123"
 
@@ -144,6 +146,19 @@ def seed():
         # Review for the completed job
         db.add(Review(customer_id=customer.id, worker_id=ravi.id, job_id=job_done.id, rating=5,
                       comment="Built a wardrobe that fit our odd-shaped room perfectly."))
+
+        # Earning for the completed booking (mirrors what the app creates automatically
+        # whenever a booking is marked COMPLETED via PUT /api/bookings/{id}/status)
+        db.flush()
+        completed_booking = db.query(Booking).filter(Booking.job_id == job_done.id).first()
+        db.add(Earning(worker_id=ravi.id, booking_id=completed_booking.id, amount=completed_booking.price))
+
+        # Sample weekly availability for one worker
+        db.add_all([
+            WorkerAvailability(worker_id=raj.id, day=Weekday.MONDAY, start_time=time(9, 0), end_time=time(18, 0)),
+            WorkerAvailability(worker_id=raj.id, day=Weekday.TUESDAY, start_time=time(9, 0), end_time=time(18, 0)),
+            WorkerAvailability(worker_id=raj.id, day=Weekday.SATURDAY, start_time=time(10, 0), end_time=time(14, 0)),
+        ])
 
         # Saved workers
         db.add_all([SavedWorker(customer_id=customer.id, worker_id=raj.id),

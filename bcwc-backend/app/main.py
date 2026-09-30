@@ -20,6 +20,7 @@ from app.routers import (
     saved_workers,
     services,
     users,
+    worker_extras,
     workers,
 )
 
@@ -71,6 +72,7 @@ app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(services.router)
 app.include_router(workers.router)
+app.include_router(worker_extras.router)
 app.include_router(jobs.router)
 app.include_router(applications.router)
 app.include_router(bookings.router)
